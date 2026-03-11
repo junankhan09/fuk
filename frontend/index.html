@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>apex pulse · ai signals</title>
     <!-- Font & Icons (EXACTLY THE SAME) -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -10,7 +10,7 @@
     <!-- Tailwind (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* YOUR EXACT CSS - NOTHING CHANGED */
+        /* YOUR EXACT CSS - WITH MOBILE OPTIMIZATIONS */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -19,7 +19,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.5rem;
         }
         .neo-card {
             background: rgba(8, 16, 30, 0.75);
@@ -29,12 +29,14 @@
             box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 255, 0.05) inset;
             border-radius: 40px;
             transition: all 0.2s ease;
+            width: 100%;
+            max-width: 1200px;
         }
         .top-bar {
             background: rgba(5, 15, 30, 0.6);
             border-bottom: 1px solid rgba(0, 200, 255, 0.15);
             border-radius: 40px 40px 0 0;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.2rem;
         }
         .search-float {
             background: rgba(2, 10, 22, 0.7);
@@ -76,6 +78,7 @@
             background: linear-gradient(145deg, #0f2a3f, #0d1f30);
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,215,0,0.2);
+            display: inline-block;
         }
         .signal-chip.call {
             background: linear-gradient(145deg, #0f4c3a, #0b3b2b);
@@ -110,34 +113,37 @@
             padding: 0.4rem 1.2rem;
             font-size: 0.8rem;
             color: #bfd9ff;
+            white-space: nowrap;
         }
 
-        /* UNIQUE CANDLE DESIGN – ORBITAL STYLE (YOUR EXACT DESIGN) */
+        /* UNIQUE CANDLE DESIGN – ORBITAL STYLE (OPTIMIZED FOR MOBILE) */
         .candle-orbit {
             display: flex;
             align-items: center;
-            gap: 24px;
+            justify-content: center;
+            gap: 12px;
             background: #0b1729;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1rem;
             border-radius: 60px;
             border: 1px solid #2a4f80;
             box-shadow: 0 10px 20px -5px rgba(0,170,255,0.15);
+            flex-wrap: wrap;
         }
         .orbit-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .orbit-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: #7f9fcc;
             font-weight: 500;
         }
         .orbit-value {
-            font-size: 1.8rem;
+            font-size: 1.3rem;
             font-weight: 800;
             font-family: 'Plus Jakarta Sans', monospace;
             background: linear-gradient(135deg, #fff, #bfd9ff);
@@ -149,9 +155,9 @@
         .candle-core {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(0, 170, 255, 0.08);
-            padding: 0.5rem 2rem;
+            padding: 0.4rem 1rem;
             border-radius: 100px;
             border: 1px dashed rgba(0, 170, 255, 0.5);
             backdrop-filter: blur(4px);
@@ -159,11 +165,11 @@
         .candle-symbol {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .candle-sphere {
-            width: 18px;
-            height: 18px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: #2af;
             box-shadow: 0 0 20px #2af;
@@ -177,22 +183,24 @@
             box-shadow: 0 0 20px #2af;
         }
         .candle-line {
-            width: 40px;
+            width: 30px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #2af, #5f6cff, transparent);
         }
         .candle-line-reverse {
-            width: 40px;
+            width: 30px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #ff4d6d, #ff8c9f, transparent);
         }
         .tg-pill {
             background: #0f2440;
             border-radius: 60px;
-            padding: 0.4rem 1.5rem;
+            padding: 0.4rem 1.2rem;
             border: 1px solid #2af;
             color: white;
             transition: 0.1s;
+            white-space: nowrap;
+            font-size: 0.9rem;
         }
         .tg-pill:hover {
             background: #1b3557;
@@ -201,11 +209,13 @@
             background: linear-gradient(135deg, #0055ff, #0066cc);
             border: none;
             border-radius: 32px;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             font-weight: 800;
             letter-spacing: 0.5px;
             box-shadow: 0 15px 30px -10px #0066ff80;
             transition: all 0.2s;
+            width: 100%;
+            font-size: 1.1rem;
         }
         .gen-btn:hover {
             background: linear-gradient(135deg, #0066ff, #0077ee);
@@ -227,6 +237,44 @@
         .scroll-modern::-webkit-scrollbar { width: 5px; }
         .scroll-modern::-webkit-scrollbar-track { background: #0f1a2a; border-radius: 20px; }
         .scroll-modern::-webkit-scrollbar-thumb { background: #2a4f80; border-radius: 20px; }
+
+        /* MOBILE-SPECIFIC OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            body { padding: 0.3rem; }
+            .top-bar { padding: 0.8rem 1rem; }
+            .top-bar .text-2xl { font-size: 1.5rem; }
+            .live-badge { padding: 0.3rem 0.8rem; font-size: 0.7rem; }
+            .asset-tile { padding: 10px 12px; }
+            .asset-tile .text-base { font-size: 0.9rem; }
+            .asset-tile .text-xs { font-size: 0.7rem; }
+            .candle-orbit { gap: 8px; }
+            .orbit-value { font-size: 1.1rem; }
+            .orbit-label { font-size: 0.55rem; }
+            .candle-core { padding: 0.3rem 0.8rem; }
+            .candle-line { width: 20px; }
+            .candle-line-reverse { width: 20px; }
+            .candle-sphere { width: 12px; height: 12px; }
+            .gen-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+            .tg-pill { padding: 0.3rem 1rem; font-size: 0.8rem; }
+            #confidence-value { font-size: 2rem; }
+            .grid-cols-2 { gap: 0.8rem; }
+            .p-6 { padding: 1rem; }
+            .p-7 { padding: 1.2rem; }
+        }
+
+        /* SMALL PHONES */
+        @media (max-width: 480px) {
+            .orbit-value { font-size: 0.9rem; }
+            .orbit-label { font-size: 0.5rem; }
+            .candle-orbit { gap: 5px; }
+            .candle-line { width: 15px; }
+            .candle-line-reverse { width: 15px; }
+            .candle-sphere { width: 10px; height: 10px; }
+            .text-3xl { font-size: 1.5rem; }
+            .text-2xl { font-size: 1.2rem; }
+            .text-xl { font-size: 1rem; }
+            .p-5 { padding: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -234,112 +282,112 @@
 <div class="neo-card w-full max-w-7xl">
 
     <!-- top bar (YOUR EXACT DESIGN) -->
-    <div class="top-bar flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-            <div class="flex gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#2af] shadow-[0_0_8px_#2af]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#5f6cff]"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-[#b0c0ff]"></span>
+    <div class="top-bar flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+            <div class="flex gap-1">
+                <span class="w-2 h-2 rounded-full bg-[#2af] shadow-[0_0_8px_#2af]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#5f6cff]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#b0c0ff]"></span>
             </div>
             <div>
-                <span class="text-2xl font-extrabold tracking-tight text-white">APEX<span class="text-[#2af]">PULSE</span></span>
-                <div class="text-[0.65rem] uppercase tracking-widest text-[#7fa0dd] font-medium">ai signal engine · v2</div>
+                <span class="text-xl md:text-2xl font-extrabold tracking-tight text-white">APEX<span class="text-[#2af]">PULSE</span></span>
+                <div class="text-[0.55rem] md:text-[0.65rem] uppercase tracking-widest text-[#7fa0dd] font-medium">ai signal engine · v2</div>
             </div>
         </div>
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 live-badge">
-                <span class="relative flex h-2 w-2">
+        <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1 live-badge">
+                <span class="relative flex h-1.5 w-1.5">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                 </span>
-                <span class="text-xs font-medium" id="api-status-indicator">LIVE</span>
+                <span class="text-2xs md:text-xs font-medium" id="api-status-indicator">LIVE</span>
             </div>
-            <div class="text-xs font-mono bg-[#0f1f35] py-2 px-5 rounded-full border border-[#2a4f80]">
+            <div class="text-2xs md:text-xs font-mono bg-[#0f1f35] py-1.5 px-3 md:py-2 md:px-5 rounded-full border border-[#2a4f80]">
                 <i class="far fa-clock mr-1 text-[#2af]"></i><span id="current-time">18:19</span>
             </div>
         </div>
     </div>
 
     <!-- main grid (YOUR EXACT DESIGN) -->
-    <div class="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-7">
+    <div class="p-4 md:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-7">
         <!-- left column: assets + search -->
-        <div class="lg:col-span-2 space-y-5">
+        <div class="lg:col-span-2 space-y-4 md:space-y-5">
             <div>
-                <div class="text-xs font-semibold text-[#7f9fcc] uppercase tracking-wider mb-2 flex items-center gap-1"><i class="fas fa-magnifying-glass text-[#2af]"></i> ASSET EXPLORER</div>
+                <div class="text-2xs md:text-xs font-semibold text-[#7f9fcc] uppercase tracking-wider mb-1 md:mb-2 flex items-center gap-1"><i class="fas fa-magnifying-glass text-[#2af]"></i> ASSET EXPLORER</div>
                 <div class="search-float flex items-center">
-                    <i class="fas fa-search text-[#2af] mr-3 text-sm"></i>
-                    <input type="text" id="pair-search" placeholder="Search pair, group or symbol..." class="w-full bg-transparent border-0 text-white placeholder:text-[#6080aa] text-sm focus:outline-none py-3">
+                    <i class="fas fa-search text-[#2af] mr-2 md:mr-3 text-xs md:text-sm"></i>
+                    <input type="text" id="pair-search" placeholder="Search pair, group or symbol..." class="w-full bg-transparent border-0 text-white placeholder:text-[#6080aa] text-xs md:text-sm focus:outline-none py-2 md:py-3">
                     <button id="clear-search" class="ml-2 text-[#6080aa] hover:text-white transition"><i class="fas fa-times-circle"></i></button>
                 </div>
             </div>
 
             <!-- asset grid (YOUR EXACT DESIGN) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scroll-modern" id="pairs-container"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[300px] md:max-h-[360px] overflow-y-auto pr-1 scroll-modern" id="pairs-container"></div>
         </div>
 
         <!-- right panel: controls & selection (YOUR EXACT DESIGN) -->
-        <div class="space-y-5">
-            <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-3xl p-5">
-                <div class="text-xs text-[#8aacdd] flex items-center gap-1 mb-2"><i class="fas fa-hourglass-half text-[#2af]"></i> EXPIRY</div>
-                <select id="duration-select" class="w-full bg-[#0a1a2f] border border-[#2a4f80] text-white rounded-2xl py-3.5 px-5 text-sm focus:border-[#2af] focus:ring-2 focus:ring-[#2af]/30">
+        <div class="space-y-4 md:space-y-5">
+            <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-2xl md:rounded-3xl p-4 md:p-5">
+                <div class="text-2xs md:text-xs text-[#8aacdd] flex items-center gap-1 mb-2"><i class="fas fa-hourglass-half text-[#2af]"></i> EXPIRY</div>
+                <select id="duration-select" class="w-full bg-[#0a1a2f] border border-[#2a4f80] text-white rounded-xl md:rounded-2xl py-2.5 md:py-3.5 px-3 md:px-5 text-xs md:text-sm focus:border-[#2af] focus:ring-2 focus:ring-[#2af]/30">
                     <option value="1 Minute">⏱️ 1 Minute</option>
                     <option value="5 Minutes">⏱️ 5 Minutes</option>
                 </select>
             </div>
 
-            <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-3xl p-5 flex justify-between items-center">
+            <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-2xl md:rounded-3xl p-4 md:p-5 flex justify-between items-center">
                 <div>
-                    <div class="text-xs text-[#8aacdd]">CURRENT</div>
-                    <div class="text-3xl font-bold text-white" id="selected-pair-display">EUR/USD</div>
+                    <div class="text-2xs md:text-xs text-[#8aacdd]">CURRENT</div>
+                    <div class="text-xl md:text-3xl font-bold text-white" id="selected-pair-display">EUR/USD</div>
                 </div>
-                <div class="bg-[#0a2a40] py-1.5 px-4 rounded-full border border-[#2af]">
-                    <span class="text-xs font-medium text-[#9fc8ff]">active</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-3xl p-5">
-                    <div class="text-xs text-[#8aacdd]">NOW</div>
-                    <div class="text-2xl font-mono font-bold text-white" id="current-time-large">18:19</div>
-                </div>
-                <div class="bg-gradient-to-br from-[#1a2f4a] to-[#102236] border border-[#2af]/40 rounded-3xl p-5">
-                    <div class="text-xs text-[#aac9ff]">TRADE </div>
-                    <div class="text-2xl font-mono font-bold text-[#9fc8ff]" id="future-trade-time">18:20</div>
+                <div class="bg-[#0a2a40] py-1 md:py-1.5 px-3 md:px-4 rounded-full border border-[#2af]">
+                    <span class="text-2xs md:text-xs font-medium text-[#9fc8ff]">active</span>
                 </div>
             </div>
 
-            <button id="generate-button" class="gen-btn w-full text-white text-lg font-extrabold flex items-center justify-center gap-2">
-                <i class="fas fa-bolt text-2xl"></i> <span>GENERATE SIGNAL</span>
+            <div class="grid grid-cols-2 gap-2 md:gap-4">
+                <div class="bg-[#0f1f33] border border-[#1f3f66] rounded-2xl md:rounded-3xl p-3 md:p-5">
+                    <div class="text-2xs md:text-xs text-[#8aacdd]">NOW</div>
+                    <div class="text-xl md:text-2xl font-mono font-bold text-white" id="current-time-large">18:19</div>
+                </div>
+                <div class="bg-gradient-to-br from-[#1a2f4a] to-[#102236] border border-[#2af]/40 rounded-2xl md:rounded-3xl p-3 md:p-5">
+                    <div class="text-2xs md:text-xs text-[#aac9ff]">TRADE</div>
+                    <div class="text-xl md:text-2xl font-mono font-bold text-[#9fc8ff]" id="future-trade-time">18:20</div>
+                </div>
+            </div>
+
+            <button id="generate-button" class="gen-btn w-full text-white text-base md:text-lg font-extrabold flex items-center justify-center gap-2">
+                <i class="fas fa-bolt text-xl md:text-2xl"></i> <span>GENERATE SIGNAL</span>
             </button>
 
-            <div class="text-xs text-center text-[#6080aa] bg-[#0a1a2f]/70 py-4 rounded-2xl border border-[#2a4f80]/30">
+            <div class="text-2xs md:text-xs text-center text-[#6080aa] bg-[#0a1a2f]/70 py-3 md:py-4 rounded-xl md:rounded-2xl border border-[#2a4f80]/30">
                 <i class="fas fa-microchip mr-1 text-[#2af]"></i> same core logic · fresh design
             </div>
         </div>
     </div>
 
     <!-- SIGNAL OUTPUT WITH UNIQUE CANDLE (YOUR EXACT DESIGN) -->
-    <div id="signal-output" class="mx-6 lg:mx-8 mb-8 p-7 bg-[#0b1b30] backdrop-blur-sm border border-[#2af]/30 rounded-4xl hidden opacity-0 transition-opacity duration-300" style="border-radius: 36px;">
-        <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
-            <div class="flex items-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-[#2af] animate-pulse"></div>
-                <h2 class="text-2xl font-bold text-white">analysis <span class="text-[#2af]">insight</span></h2>
+    <div id="signal-output" class="mx-4 md:mx-6 lg:mx-8 mb-6 md:mb-8 p-5 md:p-7 bg-[#0b1b30] backdrop-blur-sm border border-[#2af]/30 rounded-3xl md:rounded-4xl hidden opacity-0 transition-opacity duration-300" style="border-radius: 36px;">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4 md:mb-6">
+            <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#2af] animate-pulse"></div>
+                <h2 class="text-lg md:text-2xl font-bold text-white">analysis <span class="text-[#2af]">insight</span></h2>
             </div>
-            <a href="https://t.me/jummuubot" target="_blank" class="tg-pill flex items-center gap-2 text-sm">
-                <i class="fab fa-telegram text-[#2af] text-lg"></i> @jummuubot
+            <a href="https://t.me/jummuubot" target="_blank" class="tg-pill flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                <i class="fab fa-telegram text-[#2af] text-base md:text-lg"></i> @jummuubot
             </a>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div class="bg-[#0a1a30]/80 p-4 rounded-2xl border border-white/5"><div class="text-xs text-[#8aacdd]">PAIR</div><div class="text-white font-bold text-xl" id="output-pair">EUR/USD</div></div>
-            <div class="bg-[#0a1a30]/80 p-4 rounded-2xl border border-white/5"><div class="text-xs text-[#8aacdd]">EXPIRY</div><div class="text-white font-bold text-xl" id="output-duration">1 Min</div></div>
-            <div class="bg-[#0a1a30]/80 p-4 rounded-2xl border border-white/5"><div class="text-xs text-[#8aacdd]">DIRECTION</div><div><span id="output-direction" class="signal-chip call">CALL</span></div></div>
-            <div class="bg-[#0a1a30]/80 p-4 rounded-2xl border border-white/5"><div class="text-xs text-[#8aacdd]">TRADE TIME</div><div class="text-white font-bold text-xl" id="output-trade-time">18:20</div></div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mb-4 md:mb-6">
+            <div class="bg-[#0a1a30]/80 p-2 md:p-4 rounded-xl md:rounded-2xl border border-white/5"><div class="text-2xs md:text-xs text-[#8aacdd]">PAIR</div><div class="text-sm md:text-xl font-bold text-white" id="output-pair">EUR/USD</div></div>
+            <div class="bg-[#0a1a30]/80 p-2 md:p-4 rounded-xl md:rounded-2xl border border-white/5"><div class="text-2xs md:text-xs text-[#8aacdd]">EXPIRY</div><div class="text-sm md:text-xl font-bold text-white" id="output-duration">1 Min</div></div>
+            <div class="bg-[#0a1a30]/80 p-2 md:p-4 rounded-xl md:rounded-2xl border border-white/5"><div class="text-2xs md:text-xs text-[#8aacdd]">DIRECTION</div><div><span id="output-direction" class="signal-chip call text-xs md:text-sm">CALL</span></div></div>
+            <div class="bg-[#0a1a30]/80 p-2 md:p-4 rounded-xl md:rounded-2xl border border-white/5"><div class="text-2xs md:text-xs text-[#8aacdd]">TRADE TIME</div><div class="text-sm md:text-xl font-bold text-white" id="output-trade-time">18:20</div></div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 bg-[#0a1a30]/60 rounded-3xl p-6 border border-[#1f3f66]">
-                <div class="text-xs text-[#8aacdd] mb-4 flex items-center gap-1"><i class="fas fa-satellite text-[#2af]"></i> ORBIT CANDLE · START / END</div>
+        <div class="grid md:grid-cols-3 gap-4 md:gap-6">
+            <div class="md:col-span-2 bg-[#0a1a30]/60 rounded-2xl md:rounded-3xl p-4 md:p-6 border border-[#1f3f66]">
+                <div class="text-2xs md:text-xs text-[#8aacdd] mb-3 md:mb-4 flex items-center gap-1"><i class="fas fa-satellite text-[#2af]"></i> ORBIT CANDLE · START / END</div>
 
                 <div class="candle-orbit">
                     <div class="orbit-item">
@@ -361,168 +409,168 @@
                     </div>
                 </div>
 
-                <div class="mt-5 flex items-center gap-4">
-                    <span class="text-sm text-[#8aacdd]"><i class="fas fa-bolt mr-1"></i>current price</span>
-                    <span class="text-white font-mono text-2xl font-bold" id="output-price">1.0597</span>
+                <div class="mt-4 md:mt-5 flex items-center gap-2 md:gap-4">
+                    <span class="text-2xs md:text-sm text-[#8aacdd]"><i class="fas fa-bolt mr-1"></i>current price</span>
+                    <span class="text-white font-mono text-lg md:text-2xl font-bold" id="output-price">1.0597</span>
                 </div>
             </div>
 
-            <div class="bg-[#0a1a30]/60 rounded-3xl p-6 border border-[#1f3f66]">
-                <div class="text-xs text-[#8aacdd] mb-1">CONFIDENCE</div>
-                <div class="text-4xl font-bold text-white" id="confidence-value">92%</div>
-                <div class="bar-bg w-full mt-3 mb-4">
+            <div class="bg-[#0a1a30]/60 rounded-2xl md:rounded-3xl p-4 md:p-6 border border-[#1f3f66]">
+                <div class="text-2xs md:text-xs text-[#8aacdd] mb-1">CONFIDENCE</div>
+                <div class="text-2xl md:text-4xl font-bold text-white" id="confidence-value">92%</div>
+                <div class="bar-bg w-full mt-2 md:mt-3 mb-3 md:mb-4">
                     <div class="bar-fill" id="confidence-bar" style="width:92%"></div>
                 </div>
-                <div class="text-xs text-[#8aacdd] flex items-center gap-1 mt-2"><i class="fas fa-newspaper text-[#2af]"></i> QUICK NEWS</div>
+                <div class="text-2xs md:text-xs text-[#8aacdd] flex items-center gap-1 mt-2"><i class="fas fa-newspaper text-[#2af]"></i> QUICK NEWS</div>
                 <div id="news-section" class="hidden mt-1">
-                    <div id="news-content" class="text-xs text-[#bfd9ff] space-y-1 max-h-16 overflow-auto scroll-modern"></div>
+                    <div id="news-content" class="text-2xs md:text-xs text-[#bfd9ff] space-y-1 max-h-16 overflow-auto scroll-modern"></div>
                 </div>
-                <div id="no-news-placeholder" class="text-xs text-[#6080aa]">no recent headlines</div>
+                <div id="no-news-placeholder" class="text-2xs md:text-xs text-[#6080aa]">no recent headlines</div>
             </div>
         </div>
     </div>
 
-    <div id="loading-indicator" class="mx-6 lg:mx-8 mb-8 p-8 bg-[#0a1a30]/80 backdrop-blur-sm rounded-4xl border border-[#2af]/30 hidden flex-col items-center gap-3" style="border-radius: 40px;">
+    <div id="loading-indicator" class="mx-4 md:mx-6 lg:mx-8 mb-6 md:mb-8 p-6 md:p-8 bg-[#0a1a30]/80 backdrop-blur-sm rounded-3xl md:rounded-4xl border border-[#2af]/30 hidden flex-col items-center gap-3" style="border-radius: 40px;">
         <div class="spinner-blue"></div>
-        <p class="text-[#9fc8ff] font-semibold">AI analysing candles & momentum ...</p>
-        <p class="text-xs text-[#6080aa]">same enhanced logic, fresh look</p>
+        <p class="text-sm md:text-base text-[#9fc8ff] font-semibold">AI analysing candles & momentum ...</p>
+        <p class="text-2xs md:text-xs text-[#6080aa]">same enhanced logic, fresh look</p>
     </div>
 
-    <div id="error-message" class="mx-6 lg:mx-8 mb-8 p-6 bg-rose-950/50 border border-rose-700/70 rounded-3xl hidden items-center gap-3">
-        <i class="fas fa-circle-exclamation text-rose-400 text-xl"></i>
-        <span class="text-rose-200 text-sm">API connection error. Please try again.</span>
+    <div id="error-message" class="mx-4 md:mx-6 lg:mx-8 mb-6 md:mb-8 p-4 md:p-6 bg-rose-950/50 border border-rose-700/70 rounded-2xl md:rounded-3xl hidden items-center gap-2 md:gap-3">
+        <i class="fas fa-circle-exclamation text-rose-400 text-base md:text-xl"></i>
+        <span class="text-rose-200 text-xs md:text-sm">API connection error. Please try again.</span>
     </div>
 
-    <div class="border-t border-white/5 px-8 py-5 flex justify-between text-xs text-[#6080aa]">
+    <div class="border-t border-white/5 px-4 md:px-8 py-4 md:py-5 flex justify-between text-2xs md:text-xs text-[#6080aa]">
         <span>© 2026 apex pulse · ai signals</span>
         <span class="text-[#2af]">unique orbit candle</span>
     </div>
 </div>
 
-<!-- ================= MODIFIED SCRIPT - ONLY API URLs CHANGED ================= -->
+<!-- ================= SCRIPT - SAME AS BEFORE ================= -->
 <script>
     (function() {
         // ----- TRADING PAIRS (COMPLETE LIST) -----
-const tradingPairs = [
-    // Forex (Real Market)
-    { value: 'EURUSD', label: 'EUR/USD', group: 'Forex (Real Market)' },
-    { value: 'GBPUSD', label: 'GBP/USD', group: 'Forex (Real Market)' },
-    { value: 'USDJPY', label: 'USD/JPY', group: 'Forex (Real Market)' },
-    { value: 'USDCHF', label: 'USD/CHF', group: 'Forex (Real Market)' },
-    { value: 'AUDUSD', label: 'AUD/USD', group: 'Forex (Real Market)' },
-    { value: 'USDCAD', label: 'USD/CAD', group: 'Forex (Real Market)' },
-    { value: 'EURGBP', label: 'EUR/GBP', group: 'Forex (Real Market)' },
-    { value: 'EURJPY', label: 'EUR/JPY', group: 'Forex (Real Market)' },
-    { value: 'GBPJPY', label: 'GBP/JPY', group: 'Forex (Real Market)' },
-    { value: 'AUDJPY', label: 'AUD/JPY', group: 'Forex (Real Market)' },
-    { value: 'EURCHF', label: 'EUR/CHF', group: 'Forex (Real Market)' },
-    { value: 'GBPCHF', label: 'GBP/CHF', group: 'Forex (Real Market)' },
-    { value: 'AUDCAD', label: 'AUD/CAD', group: 'Forex (Real Market)' },
-    { value: 'AUDNZD', label: 'AUD/NZD', group: 'Forex (Real Market)' },
-    { value: 'CADJPY', label: 'CAD/JPY', group: 'Forex (Real Market)' },
-    { value: 'CHFJPY', label: 'CHF/JPY', group: 'Forex (Real Market)' },
-    { value: 'EURAUD', label: 'EUR/AUD', group: 'Forex (Real Market)' },
-    { value: 'EURCAD', label: 'EUR/CAD', group: 'Forex (Real Market)' },
-    { value: 'GBPAUD', label: 'GBP/AUD', group: 'Forex (Real Market)' },
-    { value: 'GBPCAD', label: 'GBP/CAD', group: 'Forex (Real Market)' },
+        const tradingPairs = [
+            // Forex (Real Market)
+            { value: 'EURUSD', label: 'EUR/USD', group: 'Forex (Real Market)' },
+            { value: 'GBPUSD', label: 'GBP/USD', group: 'Forex (Real Market)' },
+            { value: 'USDJPY', label: 'USD/JPY', group: 'Forex (Real Market)' },
+            { value: 'USDCHF', label: 'USD/CHF', group: 'Forex (Real Market)' },
+            { value: 'AUDUSD', label: 'AUD/USD', group: 'Forex (Real Market)' },
+            { value: 'USDCAD', label: 'USD/CAD', group: 'Forex (Real Market)' },
+            { value: 'EURGBP', label: 'EUR/GBP', group: 'Forex (Real Market)' },
+            { value: 'EURJPY', label: 'EUR/JPY', group: 'Forex (Real Market)' },
+            { value: 'GBPJPY', label: 'GBP/JPY', group: 'Forex (Real Market)' },
+            { value: 'AUDJPY', label: 'AUD/JPY', group: 'Forex (Real Market)' },
+            { value: 'EURCHF', label: 'EUR/CHF', group: 'Forex (Real Market)' },
+            { value: 'GBPCHF', label: 'GBP/CHF', group: 'Forex (Real Market)' },
+            { value: 'AUDCAD', label: 'AUD/CAD', group: 'Forex (Real Market)' },
+            { value: 'AUDNZD', label: 'AUD/NZD', group: 'Forex (Real Market)' },
+            { value: 'CADJPY', label: 'CAD/JPY', group: 'Forex (Real Market)' },
+            { value: 'CHFJPY', label: 'CHF/JPY', group: 'Forex (Real Market)' },
+            { value: 'EURAUD', label: 'EUR/AUD', group: 'Forex (Real Market)' },
+            { value: 'EURCAD', label: 'EUR/CAD', group: 'Forex (Real Market)' },
+            { value: 'GBPAUD', label: 'GBP/AUD', group: 'Forex (Real Market)' },
+            { value: 'GBPCAD', label: 'GBP/CAD', group: 'Forex (Real Market)' },
 
-    // Forex OTC Pairs
-    { value: 'EURUSD_otc', label: 'EUR/USD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPUSD_otc', label: 'GBP/USD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDJPY_otc', label: 'USD/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDCHF_otc', label: 'USD/CHF (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'AUDUSD_otc', label: 'AUD/USD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDCAD_otc', label: 'USD/CAD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURGBP_otc', label: 'EUR/GBP (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURNZD_otc', label: 'EUR/NZD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURJPY_otc', label: 'EUR/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPJPY_otc', label: 'GBP/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'AUDJPY_otc', label: 'AUD/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURCHF_otc', label: 'EUR/CHF (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURSGD_otc', label: 'EUR/SGD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPCHF_otc', label: 'GBP/CHF (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'NZDUSD_otc', label: 'NZD/USD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'NZDCHF_otc', label: 'NZD/CHF (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'NZDCAD_otc', label: 'NZD/CAD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'NZDJPY_otc', label: 'NZD/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'AUDCAD_otc', label: 'AUD/CAD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'AUDNZD_otc', label: 'AUD/NZD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'CADJPY_otc', label: 'CAD/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'CHFJPY_otc', label: 'CHF/JPY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURAUD_otc', label: 'EUR/AUD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'EURCAD_otc', label: 'EUR/CAD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPAUD_otc', label: 'GBP/AUD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPNZD_otc', label: 'GBP/NZD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'GBPCAD_otc', label: 'GBP/CAD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDBDT_otc', label: 'USD/BDT (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'BRLUSD_otc', label: 'BRL/USD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDINR_otc', label: 'USD/INR (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDARS_otc', label: 'USD/ARS (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDPHP_otc', label: 'USD/PHP (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDPKR_otc', label: 'USD/PKR (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDMXN_otc', label: 'USD/MXN (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDCOP_otc', label: 'USD/COP (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDEGP_otc', label: 'USD/EGP (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDTRY_otc', label: 'USD/TRY (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDDZD_otc', label: 'USD/DZD (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDIDR_otc', label: 'USD/IDR (OTC)', group: 'Forex OTC Pairs' },
-    { value: 'USDZAR_otc', label: 'USD/ZAR (OTC)', group: 'Forex OTC Pairs' },
+            // Forex OTC Pairs
+            { value: 'EURUSD_otc', label: 'EUR/USD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPUSD_otc', label: 'GBP/USD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDJPY_otc', label: 'USD/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDCHF_otc', label: 'USD/CHF (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'AUDUSD_otc', label: 'AUD/USD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDCAD_otc', label: 'USD/CAD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURGBP_otc', label: 'EUR/GBP (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURNZD_otc', label: 'EUR/NZD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURJPY_otc', label: 'EUR/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPJPY_otc', label: 'GBP/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'AUDJPY_otc', label: 'AUD/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURCHF_otc', label: 'EUR/CHF (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURSGD_otc', label: 'EUR/SGD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPCHF_otc', label: 'GBP/CHF (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'NZDUSD_otc', label: 'NZD/USD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'NZDCHF_otc', label: 'NZD/CHF (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'NZDCAD_otc', label: 'NZD/CAD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'NZDJPY_otc', label: 'NZD/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'AUDCAD_otc', label: 'AUD/CAD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'AUDNZD_otc', label: 'AUD/NZD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'CADJPY_otc', label: 'CAD/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'CHFJPY_otc', label: 'CHF/JPY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURAUD_otc', label: 'EUR/AUD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'EURCAD_otc', label: 'EUR/CAD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPAUD_otc', label: 'GBP/AUD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPNZD_otc', label: 'GBP/NZD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'GBPCAD_otc', label: 'GBP/CAD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDBDT_otc', label: 'USD/BDT (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'BRLUSD_otc', label: 'BRL/USD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDINR_otc', label: 'USD/INR (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDARS_otc', label: 'USD/ARS (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDPHP_otc', label: 'USD/PHP (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDPKR_otc', label: 'USD/PKR (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDMXN_otc', label: 'USD/MXN (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDCOP_otc', label: 'USD/COP (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDEGP_otc', label: 'USD/EGP (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDTRY_otc', label: 'USD/TRY (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDDZD_otc', label: 'USD/DZD (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDIDR_otc', label: 'USD/IDR (OTC)', group: 'Forex OTC Pairs' },
+            { value: 'USDZAR_otc', label: 'USD/ZAR (OTC)', group: 'Forex OTC Pairs' },
 
-    // Commodities (Real Market)
-    { value: 'XAUUSD', label: 'Gold', group: 'Commodities (Real Market)' },
-    { value: 'XAGUSD', label: 'Silver', group: 'Commodities (Real Market)' },
-    { value: 'XBRUSD', label: 'Brent Oil', group: 'Commodities (Real Market)' },
-    { value: 'XTIUSD', label: 'WTI Oil', group: 'Commodities (Real Market)' },
-    { value: 'NATGAS', label: 'Natural Gas', group: 'Commodities (Real Market)' },
+            // Commodities (Real Market)
+            { value: 'XAUUSD', label: 'Gold', group: 'Commodities (Real Market)' },
+            { value: 'XAGUSD', label: 'Silver', group: 'Commodities (Real Market)' },
+            { value: 'XBRUSD', label: 'Brent Oil', group: 'Commodities (Real Market)' },
+            { value: 'XTIUSD', label: 'WTI Oil', group: 'Commodities (Real Market)' },
+            { value: 'NATGAS', label: 'Natural Gas', group: 'Commodities (Real Market)' },
 
-    // Commodities OTC
-    { value: 'UKBrent_otc', label: 'UK Brent Oil (OTC)', group: 'Commodities OTC' },
-    { value: 'USCrude_otc', label: 'US Crude Oil (OTC)', group: 'Commodities OTC' },
-    { value: 'XAUUSD_otc', label: 'Gold (OTC)', group: 'Commodities OTC' },
-    { value: 'XAGUSD_otc', label: 'Silver (OTC)', group: 'Commodities OTC' },
+            // Commodities OTC
+            { value: 'UKBrent_otc', label: 'UK Brent Oil (OTC)', group: 'Commodities OTC' },
+            { value: 'USCrude_otc', label: 'US Crude Oil (OTC)', group: 'Commodities OTC' },
+            { value: 'XAUUSD_otc', label: 'Gold (OTC)', group: 'Commodities OTC' },
+            { value: 'XAGUSD_otc', label: 'Silver (OTC)', group: 'Commodities OTC' },
 
-    // Cryptocurrencies
-    { value: 'BTCUSD_otc', label: 'Bitcoin (OTC)', group: 'Cryptocurrencies' },
-    { value: 'ARBUSD_otc', label: 'Arbitrum (OTC)', group: 'Cryptocurrencies' },
-    { value: 'AXIUSD_otc', label: 'Axie Infinity (OTC)', group: 'Cryptocurrencies' },
-    { value: 'HAMUSD_otc', label: 'Hamster (OTC)', group: 'Cryptocurrencies' },
-    { value: 'SHIUSD_otc', label: 'Shiba Inu (OTC)', group: 'Cryptocurrencies' },
-    { value: 'ETHUSD_otc', label: 'Ethereum (OTC)', group: 'Cryptocurrencies' },
-    { value: 'CRLUSD_otc', label: 'Cardano (OTC)', group: 'Cryptocurrencies' },
-    { value: 'BNBUSD_otc', label: 'Binance Coin (OTC)', group: 'Cryptocurrencies' },
-    { value: 'XRPUSD_otc', label: 'Ripple (OTC)', group: 'Cryptocurrencies' },
-    { value: 'LTCUSD_otc', label: 'Litecoin (OTC)', group: 'Cryptocurrencies' },
-    { value: 'DOGUSD_otc', label: 'Dogecoin (OTC)', group: 'Cryptocurrencies' },
-    { value: 'TRXUSD_otc', label: 'TRON (OTC)', group: 'Cryptocurrencies' },
-    { value: 'PEPUSD_otc', label: 'Pepe (OTC)', group: 'Cryptocurrencies' },
-    { value: 'GALUSD_otc', label: 'Gala (OTC)', group: 'Cryptocurrencies' },
-    { value: 'TRUUSD_otc', label: 'Trump (OTC)', group: 'Cryptocurrencies' },
-    { value: 'BONUSD_otc', label: 'Bonk (OTC)', group: 'Cryptocurrencies' },
-    { value: 'MANUSD_otc', label: 'Decentraland (OTC)', group: 'Cryptocurrencies' },
-    { value: 'MELUSD_otc', label: 'Melania Meme (OTC)', group: 'Cryptocurrencies' },
-    { value: 'APTUSD_otc', label: 'Aptos (OTC)', group: 'Cryptocurrencies' },
-    { value: 'AVAUSD_otc', label: 'Avalanche (OTC)', group: 'Cryptocurrencies' },
-    { value: 'BCHUSD_otc', label: 'Bitcoin Cash (OTC)', group: 'Cryptocurrencies' },
-    { value: 'DOTUSD_otc', label: 'Polkadot (OTC)', group: 'Cryptocurrencies' },
-    { value: 'LINUSD_otc', label: 'Chainlink (OTC)', group: 'Cryptocurrencies' },
-    { value: 'ATOUSD_otc', label: 'Cosmos (OTC)', group: 'Cryptocurrencies' },
-    { value: 'SOLUSD_otc', label: 'Solana (OTC)', group: 'Cryptocurrencies' },
-    { value: 'ADAUSD_otc', label: 'Cardano (OTC)', group: 'Cryptocurrencies' },
-    { value: 'TONUSD_otc', label: 'Toncoin (OTC)', group: 'Cryptocurrencies' },
-    { value: 'FLOUSD_otc', label: 'Floki (OTC)', group: 'Cryptocurrencies' },
-    { value: 'DASUSD_otc', label: 'Dash (OTC)', group: 'Cryptocurrencies' },
-    { value: 'BEAUSD_otc', label: 'Beam (OTC)', group: 'Cryptocurrencies' },
+            // Cryptocurrencies
+            { value: 'BTCUSD_otc', label: 'Bitcoin (OTC)', group: 'Cryptocurrencies' },
+            { value: 'ARBUSD_otc', label: 'Arbitrum (OTC)', group: 'Cryptocurrencies' },
+            { value: 'AXIUSD_otc', label: 'Axie Infinity (OTC)', group: 'Cryptocurrencies' },
+            { value: 'HAMUSD_otc', label: 'Hamster (OTC)', group: 'Cryptocurrencies' },
+            { value: 'SHIUSD_otc', label: 'Shiba Inu (OTC)', group: 'Cryptocurrencies' },
+            { value: 'ETHUSD_otc', label: 'Ethereum (OTC)', group: 'Cryptocurrencies' },
+            { value: 'CRLUSD_otc', label: 'Cardano (OTC)', group: 'Cryptocurrencies' },
+            { value: 'BNBUSD_otc', label: 'Binance Coin (OTC)', group: 'Cryptocurrencies' },
+            { value: 'XRPUSD_otc', label: 'Ripple (OTC)', group: 'Cryptocurrencies' },
+            { value: 'LTCUSD_otc', label: 'Litecoin (OTC)', group: 'Cryptocurrencies' },
+            { value: 'DOGUSD_otc', label: 'Dogecoin (OTC)', group: 'Cryptocurrencies' },
+            { value: 'TRXUSD_otc', label: 'TRON (OTC)', group: 'Cryptocurrencies' },
+            { value: 'PEPUSD_otc', label: 'Pepe (OTC)', group: 'Cryptocurrencies' },
+            { value: 'GALUSD_otc', label: 'Gala (OTC)', group: 'Cryptocurrencies' },
+            { value: 'TRUUSD_otc', label: 'Trump (OTC)', group: 'Cryptocurrencies' },
+            { value: 'BONUSD_otc', label: 'Bonk (OTC)', group: 'Cryptocurrencies' },
+            { value: 'MANUSD_otc', label: 'Decentraland (OTC)', group: 'Cryptocurrencies' },
+            { value: 'MELUSD_otc', label: 'Melania Meme (OTC)', group: 'Cryptocurrencies' },
+            { value: 'APTUSD_otc', label: 'Aptos (OTC)', group: 'Cryptocurrencies' },
+            { value: 'AVAUSD_otc', label: 'Avalanche (OTC)', group: 'Cryptocurrencies' },
+            { value: 'BCHUSD_otc', label: 'Bitcoin Cash (OTC)', group: 'Cryptocurrencies' },
+            { value: 'DOTUSD_otc', label: 'Polkadot (OTC)', group: 'Cryptocurrencies' },
+            { value: 'LINUSD_otc', label: 'Chainlink (OTC)', group: 'Cryptocurrencies' },
+            { value: 'ATOUSD_otc', label: 'Cosmos (OTC)', group: 'Cryptocurrencies' },
+            { value: 'SOLUSD_otc', label: 'Solana (OTC)', group: 'Cryptocurrencies' },
+            { value: 'ADAUSD_otc', label: 'Cardano (OTC)', group: 'Cryptocurrencies' },
+            { value: 'TONUSD_otc', label: 'Toncoin (OTC)', group: 'Cryptocurrencies' },
+            { value: 'FLOUSD_otc', label: 'Floki (OTC)', group: 'Cryptocurrencies' },
+            { value: 'DASUSD_otc', label: 'Dash (OTC)', group: 'Cryptocurrencies' },
+            { value: 'BEAUSD_otc', label: 'Beam (OTC)', group: 'Cryptocurrencies' },
 
-    // Stocks
-    { value: 'MSFT_otc', label: 'Microsoft (OTC)', group: 'Stocks' },
-    { value: 'PFE_otc', label: 'Pfizer (OTC)', group: 'Stocks' },
-    { value: 'BA_otc', label: 'Boeing (OTC)', group: 'Stocks' },
-    { value: 'JNJ_otc', label: 'Johnson & Johnson (OTC)', group: 'Stocks' },
-    { value: 'INTC_otc', label: 'Intel (OTC)', group: 'Stocks' },
-    { value: 'MCD_otc', label: "McDonald's (OTC)", group: 'Stocks' },
-    { value: 'AXP_otc', label: 'American Express (OTC)', group: 'Stocks' },
-    { value: 'FB_otc', label: 'FACEBOOK INC (OTC)', group: 'Stocks' }
-];
+            // Stocks
+            { value: 'MSFT_otc', label: 'Microsoft (OTC)', group: 'Stocks' },
+            { value: 'PFE_otc', label: 'Pfizer (OTC)', group: 'Stocks' },
+            { value: 'BA_otc', label: 'Boeing (OTC)', group: 'Stocks' },
+            { value: 'JNJ_otc', label: 'Johnson & Johnson (OTC)', group: 'Stocks' },
+            { value: 'INTC_otc', label: 'Intel (OTC)', group: 'Stocks' },
+            { value: 'MCD_otc', label: "McDonald's (OTC)", group: 'Stocks' },
+            { value: 'AXP_otc', label: 'American Express (OTC)', group: 'Stocks' },
+            { value: 'FB_otc', label: 'FACEBOOK INC (OTC)', group: 'Stocks' }
+        ];
 
         // DOM elements
         const generateBtn = document.getElementById('generate-button');
@@ -555,18 +603,15 @@ const tradingPairs = [
         let selectedPair = 'EURUSD';
         let filteredPairs = [...tradingPairs];
 
-        // ========== BACKEND CONFIGURATION (THE ONLY THING CHANGED) ==========
-        // Your Flask backend runs on port 5000 by default
-        const BACKEND_URL = 'http://localhost:5000';
+        // ========== BACKEND CONFIGURATION ==========
+        const BACKEND_URL = 'https://my-apex-jum.vercel.app';
 
-        // These now point to YOUR backend, not the external API!
         const API_ENDPOINTS = {
             candles: `${BACKEND_URL}/api/candles`,
             news: `${BACKEND_URL}/api/news`
         };
-        // ===================================================================
 
-        // time utils (IDENTICAL)
+        // time utils
         const formatTime = (d) => `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
         const updateFuture = () => { let f = new Date(); f.setMinutes(f.getMinutes()+1); futureSpan.textContent = formatTime(f); return f; };
         const updateClock = () => {
@@ -577,13 +622,13 @@ const tradingPairs = [
         setInterval(updateClock, 1000);
         setInterval(updateFuture, 1000);
 
-        // render pairs (IDENTICAL)
+        // render pairs
         function renderPairs() {
             pairsContainer.innerHTML = '';
             filteredPairs.forEach(pair => {
                 let div = document.createElement('div');
                 div.className = `asset-tile ${selectedPair === pair.value ? 'selected' : ''}`;
-                div.innerHTML = `<div class="font-semibold text-white text-base">${pair.label}</div><div class="text-xs text-[#7f9fcc] mt-0.5">${pair.group}</div>`;
+                div.innerHTML = `<div class="font-semibold text-white text-sm md:text-base">${pair.label}</div><div class="text-2xs md:text-xs text-[#7f9fcc] mt-0.5">${pair.group}</div>`;
                 div.addEventListener('click', () => selectPair(pair.value));
                 pairsContainer.appendChild(div);
             });
@@ -602,9 +647,8 @@ const tradingPairs = [
         });
         clearSearch.addEventListener('click', ()=>{ pairSearch.value=''; filteredPairs=[...tradingPairs]; renderPairs(); });
 
-        // ========== MODIFIED API CALLS - NOW POINTING TO YOUR BACKEND ==========
+        // API calls
         const fetchCandles = async (asset) => {
-            // Now calling YOUR backend instead of the external API!
             let r = await fetch(`${API_ENDPOINTS.candles}?asset=${asset}`);
             if(!r.ok) throw new Error(`HTTP ${r.status}`);
             return r.json();
@@ -612,14 +656,12 @@ const tradingPairs = [
 
         const fetchNews = async () => {
             try {
-                // Now calling YOUR backend instead of the external API!
                 let r = await fetch(API_ENDPOINTS.news);
                 return r.ok ? r.json() : null;
             } catch { return null; }
         };
-        // ======================================================================
 
-        // analysis function (IDENTICAL)
+        // analysis function
         function analyzeMarketData(candleArray) {
             if(!Array.isArray(candleArray) || candleArray.length<2) throw new Error('insufficient data');
             const len = candleArray.length;
@@ -740,7 +782,7 @@ const tradingPairs = [
         initializePairs();
         updateClock(); updateFuture();
 
-        // anti-inspect (IDENTICAL)
+        // anti-inspect
         document.addEventListener('contextmenu', e=>e.preventDefault());
         document.addEventListener('keydown', e=>{ if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key))||(e.ctrlKey&&e.key==='U')) e.preventDefault(); });
     })();
