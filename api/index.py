@@ -2,15 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import os
-from dotenv import load_dotenv
 import time
 import random
 
-# Load environment variables
-load_dotenv()
-
 app = Flask(__name__)
-CORS(app)  # Allow your HTML to talk to Flask
+CORS(app)
 
 
 @app.route('/')
@@ -30,134 +26,54 @@ def test():
 
 @app.route('/api/candles')
 def get_candles():
-    """Get candle data from external API"""
+    """Get candle data"""
     try:
         asset = request.args.get('asset', 'EURUSD')
-
-        print("=" * 50)
-        print(f"🔍 Getting data for: {asset}")
-        print("=" * 50)
 
         # Try external API first
         try:
             api_url = f"https://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"
-            print(f"📡 Trying external API: {api_url}")
-
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-
+            headers = {'User-Agent': 'Mozilla/5.0'}
             response = requests.get(api_url, headers=headers, timeout=5)
 
             if response.status_code == 200:
-                data = response.json()
-                print(f"✅ Got {len(data)} candles from external API")
-                return jsonify(data)
-            else:
-                print(f"❌ External API returned {response.status_code}")
-        except Exception as e:
-            print(f"❌ External API error: {str(e)}")
+                return jsonify(response.json())
+        except:
+            pass  # Fall back to sample data
 
-        # If external API fails, use improved sample data
-        print("\n⚠️ Using improved sample data")
-        sample_data = get_improved_sample_data(asset)
-        return jsonify(sample_data)
+        # Return sample data
+        return jsonify(get_sample_data(asset))
 
     except Exception as e:
-        print(f"💥 Fatal error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/news')
 def get_news():
-    """Get sample news data - external API completely removed"""
-    # Simple sample news that always works
-    sample_news = [
+    """Get sample news"""
+    news = [
         {"title": "Market update: Trading volumes normal", "time": "1h ago"},
         {"title": "Technical analysis suggests range-bound movement", "time": "2h ago"},
-        {"title": "Major pairs show consolidation pattern", "time": "3h ago"},
-        {"title": "Economic calendar: Fed speech tomorrow", "time": "4h ago"},
-        {"title": "Volatility expected during London session", "time": "5h ago"}
+        {"title": "Major pairs show consolidation pattern", "time": "3h ago"}
     ]
-    return jsonify(sample_news)
+    return jsonify(news)
 
 
-def get_improved_sample_data(asset):
-    """Return IMPROVED realistic sample data for all pairs"""
-
-    # Set base price and decimal places based on asset
-    if 'JPY' in asset:
-        base_price = 150.00
-        decimal_places = 3
-        volatility = 0.3
-    elif 'XAU' in asset or 'Gold' in asset:
-        base_price = 2000.00
-        decimal_places = 2
-        volatility = 0.5
-    elif 'BTC' in asset:
-        base_price = 65000.00
-        decimal_places = 2
-        volatility = 1.0
-    elif 'ETH' in asset:
-        base_price = 3500.00
-        decimal_places = 2
-        volatility = 0.8
-    elif 'XAG' in asset or 'Silver' in asset:
-        base_price = 25.00
-        decimal_places = 3
-        volatility = 0.4
-    else:  # Forex majors
-        base_price = 1.0500
-        decimal_places = 5
-        volatility = 0.1
-
-    # Use time to create variation (changes every 5 minutes)
-    seed = int(time.time() / 300)
-    random.seed(seed + hash(asset) % 10000)
-
-    # Generate 20 realistic candles
-    candles = []
-    current_price = base_price
-
-    # Create a slight trend
-    trend = random.choice([-1, 0, 1])
-
-    for i in range(20):
-        # Add some randomness to price movement
-        change = (random.random() - 0.5 + trend * 0.1) * volatility / 100 * current_price
-
-        # Calculate OHLC
-        open_price = current_price
-        close_price = open_price + change
-
-        # Ensure close price is reasonable
-        close_price = max(min(close_price, open_price * 1.01), open_price * 0.99)
-
-        # Calculate high and low with wicks
-        high_price = max(open_price, close_price) + abs(change) * random.random() * 0.5
-        low_price = min(open_price, close_price) - abs(change) * random.random() * 0.5
-
-        # Determine direction
-        direction = "CALL" if close_price > open_price else "PUT"
-
-        # Format with correct decimal places
-        candles.append({
-            "open": f"{open_price:.{decimal_places}f}",
-            "close": f"{close_price:.{decimal_places}f}",
-            "high": f"{high_price:.{decimal_places}f}",
-            "low": f"{low_price:.{decimal_places}f}",
-            "direction": direction
-        })
-
-        # Update current price for next candle
-        current_price = close_price
-
-    return candles
+def get_sample_data(asset):
+    """Simple sample data that always works"""
+    # Basic sample data that works for any asset
+    return [
+        {"open": "1.0582", "close": "1.0597", "high": "1.0601", "low": "1.0578", "direction": "CALL"},
+        {"open": "1.0575", "close": "1.0582", "high": "1.0585", "low": "1.0570", "direction": "CALL"},
+        {"open": "1.0568", "close": "1.0575", "high": "1.0579", "low": "1.0562", "direction": "CALL"},
+        {"open": "1.0559", "close": "1.0568", "high": "1.0570", "low": "1.0555", "direction": "CALL"},
+        {"open": "1.0550", "close": "1.0559", "high": "1.0562", "low": "1.0548", "direction": "CALL"}
+    ]
 
 
-# For Vercel deployment
+# CRITICAL for Vercel - MUST be at the bottom!
 app = app
 
+# This is only for local testing
 if __name__ == '__main__':
-    print("🚀 Starting Apex Pulse Backend...")
     app.run(host='0.0.0.0', port=5000, debug=True)
