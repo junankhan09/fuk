@@ -8,9 +8,8 @@ CORS(app)
 
 # --- CRITICAL: Only these domains can access your API ---
 ALLOWED_DOMAINS = [
-    'https://wondrous-faloodeh-dc7156.netlify.app',  # YOUR Netlify URL
-    'http://localhost:5500',  # For local testing
-    'http://127.0.0.1:5500',  # For local testing
+    'https://wondrous-faloodeh-dc7156.netlify.app',  # MY URL
+     # For local testing
     'file://'  # For local file access
 ]
 
