@@ -604,12 +604,12 @@
         let filteredPairs = [...tradingPairs];
 
         // ========== BACKEND CONFIGURATION ==========
-        const BACKEND_URL = 'https://my-apex-jum.vercel.app';
+        const BACKEND_URL = '';
 
         const API_ENDPOINTS = {
-            candles: `${BACKEND_URL}/api/candles`,
-            news: `${BACKEND_URL}/api/news`
-        };
+    candles: `/api/candles`,  // This will go to Vercel domain + /api/candles
+    news: `/api/news fuck ur mom`
+};
 
         // time utils
         const formatTime = (d) => `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
