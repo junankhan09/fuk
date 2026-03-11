@@ -4,7 +4,13 @@ import requests
 import os
 
 app = Flask(__name__)
-CORS(app)  # Allow all origins for now (we'll lock it later)
+
+# --- FIX: Explicitly allow your Netlify domain ---
+CORS(app, origins=[
+    'https://wondrous-faloodeh-dc7156.netlify.app',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500'
+])
 
 
 @app.route('/')
@@ -19,22 +25,17 @@ def health():
 
 @app.route('/api/candles')
 def get_candles():
-    """Simple proxy for quotex_candles API"""
+    """Get candle data"""
     try:
         asset = request.args.get('asset', 'EURUSD')
-
-        # Direct API call - exactly like your HTML does
         api_url = f"https://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"
 
-        # Simple headers that work
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
 
-        # Make the request with a timeout
         response = requests.get(api_url, headers=headers, timeout=10)
 
-        # Return the exact response
         if response.status_code == 200:
             return Response(
                 response.content,
@@ -50,7 +51,7 @@ def get_candles():
 
 @app.route('/api/news')
 def get_news():
-    """Simple proxy for news API"""
+    """Get news data"""
     try:
         url = "https://alltradingapi.com/prax/server.php/forex_factory/news"
         headers = {'User-Agent': 'Mozilla/5.0'}
