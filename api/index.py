@@ -5,12 +5,15 @@ import os
 
 app = Flask(__name__)
 
-# --- FIX: Explicitly allow your Netlify domain ---
-CORS(app, origins=[
-    'https://wondrous-faloodeh-dc7156.netlify.app',
-    'http://localhost:5500',
-    'http://127.0.0.1:5500'
-])
+
+# --- ULTRA SIMPLE CORS FIX - Allow EVERYTHING from your domain ---
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'https://wondrous-faloodeh-dc7156.netlify.app')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-API-Key')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 
 @app.route('/')
