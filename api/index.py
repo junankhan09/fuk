@@ -5,7 +5,6 @@ import os
 from dotenv import load_dotenv
 import time
 import random
-from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -39,7 +38,7 @@ def get_candles():
         print(f"🔍 Getting data for: {asset}")
         print("=" * 50)
 
-        # Try external API first (with your original working URL)
+        # Try external API first
         try:
             api_url = f"https://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"
             print(f"📡 Trying external API: {api_url}")
@@ -71,28 +70,16 @@ def get_candles():
 
 @app.route('/api/news')
 def get_news():
-    """Get news data"""
-    try:
-        # Try external API
-        url = "https://alltradingapi.com/prax/server.php/forex_factory/news"
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
-        response = requests.get(url, headers=headers, timeout=5)
-
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            # Return sample news
-            return jsonify([
-                {"title": "Fed maintains interest rates, signals cautious approach"},
-                {"title": "EUR/USD volatility expected ahead of ECB meeting"}
-            ])
-    except:
-        return jsonify([
-            {"title": "Market update: Trading volumes normal"},
-            {"title": "Technical analysis suggests range-bound movement"}
-        ])
+    """Get sample news data - external API completely removed"""
+    # Simple sample news that always works
+    sample_news = [
+        {"title": "Market update: Trading volumes normal", "time": "1h ago"},
+        {"title": "Technical analysis suggests range-bound movement", "time": "2h ago"},
+        {"title": "Major pairs show consolidation pattern", "time": "3h ago"},
+        {"title": "Economic calendar: Fed speech tomorrow", "time": "4h ago"},
+        {"title": "Volatility expected during London session", "time": "5h ago"}
+    ]
+    return jsonify(sample_news)
 
 
 def get_improved_sample_data(asset):
