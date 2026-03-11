@@ -4,6 +4,8 @@ import requests
 import os
 from dotenv import load_dotenv
 import time
+import random
+from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -22,6 +24,11 @@ def health():
     return jsonify({"status": "healthy"})
 
 
+@app.route('/test')
+def test():
+    return jsonify({"status": "Flask is working"})
+
+
 @app.route('/api/candles')
 def get_candles():
     """Get candle data from external API"""
@@ -32,58 +39,29 @@ def get_candles():
         print(f"🔍 Getting data for: {asset}")
         print("=" * 50)
 
-        # Get ALL URLs from environment variables (COMPLETELY HIDDEN)
-        urls_to_try = [
-            os.getenv('QUOTEX_API_URL_1', f"https://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"),
-            os.getenv('QUOTEX_API_URL_2', f"http://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"),
-            os.getenv('QUOTEX_API_URL_3', f"https://alltradingapi.com/prax/quotex_candles?asset={asset}")
-        ]
+        # Try external API first (with your original working URL)
+        try:
+            api_url = f"https://alltradingapi.com/prax/server.php/quotex_candles?asset={asset}"
+            print(f"📡 Trying external API: {api_url}")
 
-        # Headers that mimic a real browser
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Referer': 'https://alltradingapi.com/',
-            'Origin': 'https://alltradingapi.com',
-            'Connection': 'keep-alive',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-        }
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
 
-        # Try each URL
-        for i, url in enumerate(urls_to_try, 1):
-            print(f"\n📡 Attempt {i}: Trying {url}")
+            response = requests.get(api_url, headers=headers, timeout=5)
 
-            try:
-                # Create a session (like a browser tab)
-                session = requests.Session()
+            if response.status_code == 200:
+                data = response.json()
+                print(f"✅ Got {len(data)} candles from external API")
+                return jsonify(data)
+            else:
+                print(f"❌ External API returned {response.status_code}")
+        except Exception as e:
+            print(f"❌ External API error: {str(e)}")
 
-                # First visit the main site (like opening the website)
-                print("   Visiting main site first...")
-                session.get('https://alltradingapi.com', headers=headers, timeout=5)
-
-                # Then ask for the data
-                print("   Requesting data...")
-                response = session.get(url, headers=headers, timeout=10)
-
-                print(f"   Response status: {response.status_code}")
-
-                if response.status_code == 200:
-                    print(f"✅ SUCCESS with URL {i}!")
-                    data = response.json()
-                    print(f"   Got {len(data)} candles")
-                    return jsonify(data)
-                else:
-                    print(f"❌ Failed with status {response.status_code}")
-
-            except Exception as e:
-                print(f"❌ Attempt {i} error: {str(e)[:100]}")  # Show first 100 chars
-                continue
-
-        # If all attempts fail, return sample data
-        print("\n⚠️ All attempts failed, using sample data")
-        sample_data = get_sample_data()
+        # If external API fails, use improved sample data
+        print("\n⚠️ Using improved sample data")
+        sample_data = get_improved_sample_data(asset)
         return jsonify(sample_data)
 
     except Exception as e:
@@ -95,6 +73,7 @@ def get_candles():
 def get_news():
     """Get news data"""
     try:
+        # Try external API
         url = "https://alltradingapi.com/prax/server.php/forex_factory/news"
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -104,25 +83,94 @@ def get_news():
         if response.status_code == 200:
             return jsonify(response.json())
         else:
-            return jsonify([])
+            # Return sample news
+            return jsonify([
+                {"title": "Fed maintains interest rates, signals cautious approach"},
+                {"title": "EUR/USD volatility expected ahead of ECB meeting"}
+            ])
     except:
-        return jsonify([])
+        return jsonify([
+            {"title": "Market update: Trading volumes normal"},
+            {"title": "Technical analysis suggests range-bound movement"}
+        ])
 
 
-def get_sample_data():
-    """Return sample data when API is down"""
-    return [
-        {"open": "1.0582", "close": "1.0597", "high": "1.0601", "low": "1.0578", "direction": "CALL"},
-        {"open": "1.0575", "close": "1.0582", "high": "1.0585", "low": "1.0570", "direction": "CALL"},
-        {"open": "1.0568", "close": "1.0575", "high": "1.0579", "low": "1.0562", "direction": "CALL"},
-        {"open": "1.0559", "close": "1.0568", "high": "1.0570", "low": "1.0555", "direction": "CALL"},
-        {"open": "1.0550", "close": "1.0559", "high": "1.0562", "low": "1.0548", "direction": "CALL"}
-    ]
+def get_improved_sample_data(asset):
+    """Return IMPROVED realistic sample data for all pairs"""
 
+    # Set base price and decimal places based on asset
+    if 'JPY' in asset:
+        base_price = 150.00
+        decimal_places = 3
+        volatility = 0.3
+    elif 'XAU' in asset or 'Gold' in asset:
+        base_price = 2000.00
+        decimal_places = 2
+        volatility = 0.5
+    elif 'BTC' in asset:
+        base_price = 65000.00
+        decimal_places = 2
+        volatility = 1.0
+    elif 'ETH' in asset:
+        base_price = 3500.00
+        decimal_places = 2
+        volatility = 0.8
+    elif 'XAG' in asset or 'Silver' in asset:
+        base_price = 25.00
+        decimal_places = 3
+        volatility = 0.4
+    else:  # Forex majors
+        base_price = 1.0500
+        decimal_places = 5
+        volatility = 0.1
+
+    # Use time to create variation (changes every 5 minutes)
+    seed = int(time.time() / 300)
+    random.seed(seed + hash(asset) % 10000)
+
+    # Generate 20 realistic candles
+    candles = []
+    current_price = base_price
+
+    # Create a slight trend
+    trend = random.choice([-1, 0, 1])
+
+    for i in range(20):
+        # Add some randomness to price movement
+        change = (random.random() - 0.5 + trend * 0.1) * volatility / 100 * current_price
+
+        # Calculate OHLC
+        open_price = current_price
+        close_price = open_price + change
+
+        # Ensure close price is reasonable
+        close_price = max(min(close_price, open_price * 1.01), open_price * 0.99)
+
+        # Calculate high and low with wicks
+        high_price = max(open_price, close_price) + abs(change) * random.random() * 0.5
+        low_price = min(open_price, close_price) - abs(change) * random.random() * 0.5
+
+        # Determine direction
+        direction = "CALL" if close_price > open_price else "PUT"
+
+        # Format with correct decimal places
+        candles.append({
+            "open": f"{open_price:.{decimal_places}f}",
+            "close": f"{close_price:.{decimal_places}f}",
+            "high": f"{high_price:.{decimal_places}f}",
+            "low": f"{low_price:.{decimal_places}f}",
+            "direction": direction
+        })
+
+        # Update current price for next candle
+        current_price = close_price
+
+    return candles
+
+
+# For Vercel deployment
+app = app
 
 if __name__ == '__main__':
-    print("🚀 Starting Apex Pulse Backend with Sample Data Fallback...")
+    print("🚀 Starting Apex Pulse Backend...")
     app.run(host='0.0.0.0', port=5000, debug=True)
-
-    # For Vercel deployment
-    app = app
